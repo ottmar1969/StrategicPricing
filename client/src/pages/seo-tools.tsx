@@ -149,6 +149,71 @@ export default function SeoTools() {
     },
   });
 
+  // AI-First SEO Power Tools
+  const craftOptimizerMutation = useMutation({
+    mutationFn: (data: any) => fetch('/api/ai-seo/craft-optimize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(res => res.json()),
+    onSuccess: (response) => {
+      setActiveResults(response);
+      setActiveToolType("craft-optimizer");
+      toast({
+        title: "CRAFT Optimization Complete",
+        description: "Content optimized for rapid ranking with AI-first approach.",
+      });
+    },
+  });
+
+  const aiEatEnhancerMutation = useMutation({
+    mutationFn: (data: any) => fetch('/api/ai-seo/eat-enhance', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(res => res.json()),
+    onSuccess: (response) => {
+      setActiveResults(response);
+      setActiveToolType("ai-eat-enhancer");
+      toast({
+        title: "AI E-A-T Enhancement Complete",
+        description: "Advanced E-A-T optimization for AI search engines completed.",
+      });
+    },
+  });
+
+  const rapidRankingMutation = useMutation({
+    mutationFn: (data: any) => fetch('/api/ai-seo/generate-optimized', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(res => res.json()),
+    onSuccess: (response) => {
+      setActiveResults(response);
+      setActiveToolType("rapid-ranking");
+      toast({
+        title: "Rapid Ranking Content Generated",
+        description: "AI-optimized content ready for fast ranking success.",
+      });
+    },
+  });
+
+  const aiSeoAuditMutation = useMutation({
+    mutationFn: (data: any) => fetch('/api/ai-seo/audit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(res => res.json()),
+    onSuccess: (response) => {
+      setActiveResults(response);
+      setActiveToolType("ai-seo-audit");
+      toast({
+        title: "AI SEO Audit Complete",
+        description: "Comprehensive analysis for AI search optimization completed.",
+      });
+    },
+  });
+
   const handleLaunchTool = (toolType: string) => {
     const userId = 1; // Demo user ID
     
@@ -208,6 +273,39 @@ export default function SeoTools() {
           userId 
         });
         break;
+      case "craft-optimizer":
+        craftOptimizerMutation.mutate({ 
+          content: "Create comprehensive guide about AI-powered SEO tools that help businesses rank faster in search engines...",
+          targetKeywords: ["AI SEO tools", "search engine optimization", "content marketing"],
+          contentType: "guide",
+          audience: "digital marketers and SEO professionals",
+          userId 
+        });
+        break;
+      case "ai-eat-enhancer":
+        aiEatEnhancerMutation.mutate({ 
+          content: "Expert guide to AI-powered content optimization with 10+ years of SEO experience and proven results...",
+          topic: "AI content optimization strategies",
+          userId 
+        });
+        break;
+      case "rapid-ranking":
+        rapidRankingMutation.mutate({ 
+          topic: "AI SEO Tools for Rapid Ranking",
+          targetKeywords: ["AI SEO", "rapid ranking", "search optimization", "content AI"],
+          contentGoal: "rank_fast",
+          wordCount: 2000,
+          audience: "SEO professionals and content marketers",
+          userId 
+        });
+        break;
+      case "ai-seo-audit":
+        aiSeoAuditMutation.mutate({ 
+          url: window.location.href,
+          content: "ContentScale Pro is an advanced AI-powered SEO platform with revolutionary tools for content optimization...",
+          userId 
+        });
+        break;
     }
   };
 
@@ -222,6 +320,10 @@ export default function SeoTools() {
       case "competitor-gaps": return competitorGapsMutation.isPending;
       case "serp-opportunities": return serpOpportunitiesMutation.isPending;
       case "eat-optimization": return eatOptimizationMutation.isPending;
+      case "craft-optimizer": return craftOptimizerMutation.isPending;
+      case "ai-eat-enhancer": return aiEatEnhancerMutation.isPending;
+      case "rapid-ranking": return rapidRankingMutation.isPending;
+      case "ai-seo-audit": return aiSeoAuditMutation.isPending;
       default: return false;
     }
   };
@@ -322,6 +424,50 @@ export default function SeoTools() {
             iconColor="emerald"
             buttonColor="bg-emerald-600 hover:bg-emerald-700 text-white"
             onLaunch={() => handleLaunchTool("eat-optimization")}
+          />
+        </div>
+      </div>
+
+      {/* AI-First SEO Power Tools */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-foreground mb-4">⚡ AI-First SEO Power Tools</h2>
+        <p className="text-muted-foreground mb-6">Advanced optimization for Google AI Overview, Featured Snippets, and AI Search Engines</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ToolCard
+            title="CRAFT Content Optimizer"
+            description="Apply the CRAFT framework to create AI-optimized content that ranks in days, not weeks"
+            icon={Award}
+            iconColor="gold"
+            buttonColor="bg-amber-600 hover:bg-amber-700 text-white"
+            onLaunch={() => handleLaunchTool("craft-optimizer")}
+          />
+
+          <ToolCard
+            title="AI E-A-T Enhancer"
+            description="Advanced E-A-T optimization specifically designed for AI search engines and Google AI Overview"
+            icon={Shield}
+            iconColor="blue"
+            buttonColor="bg-blue-600 hover:bg-blue-700 text-white"
+            onLaunch={() => handleLaunchTool("ai-eat-enhancer")}
+          />
+
+          <ToolCard
+            title="Rapid Ranking Generator"
+            description="Generate AI-optimized content designed to rank in days with maximum search visibility"
+            icon={Zap}
+            iconColor="purple"
+            buttonColor="bg-purple-600 hover:bg-purple-700 text-white"
+            onLaunch={() => handleLaunchTool("rapid-ranking")}
+          />
+
+          <ToolCard
+            title="AI SEO Health Audit"
+            description="Comprehensive SEO audit optimized for AI search engines and modern ranking factors"
+            icon={Search}
+            iconColor="green"
+            buttonColor="bg-green-600 hover:bg-green-700 text-white"
+            onLaunch={() => handleLaunchTool("ai-seo-audit")}
             className="md:col-span-2"
           />
         </div>
@@ -338,6 +484,10 @@ export default function SeoTools() {
         "competitor-gaps": competitorGapsMutation.isPending,
         "serp-opportunities": serpOpportunitiesMutation.isPending,
         "eat-optimization": eatOptimizationMutation.isPending,
+        "craft-optimizer": craftOptimizerMutation.isPending,
+        "ai-eat-enhancer": aiEatEnhancerMutation.isPending,
+        "rapid-ranking": rapidRankingMutation.isPending,
+        "ai-seo-audit": aiSeoAuditMutation.isPending,
       }).some(Boolean) && (
         <Card className="mb-8">
           <CardContent className="pt-6">
@@ -363,6 +513,10 @@ export default function SeoTools() {
               {activeToolType === "competitor-gaps" && "Live Competitor Gap Analysis"}
               {activeToolType === "serp-opportunities" && "Live SERP Opportunities"}
               {activeToolType === "eat-optimization" && "E-A-T Authority Optimization"}
+              {activeToolType === "craft-optimizer" && "CRAFT Content Optimization"}
+              {activeToolType === "ai-eat-enhancer" && "AI E-A-T Enhancement"}
+              {activeToolType === "rapid-ranking" && "Rapid Ranking Content Generation"}
+              {activeToolType === "ai-seo-audit" && "AI SEO Health Audit"}
             </CardTitle>
           </CardHeader>
           <CardContent>

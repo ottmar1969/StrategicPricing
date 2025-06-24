@@ -38,6 +38,12 @@ import {
   findSerpOpportunities,
   optimizeForEAT
 } from "./services/perplexity";
+import {
+  applyCRAFTFramework,
+  enhanceEATForAI,
+  generateAIOptimizedContent,
+  performAISEOAudit
+} from "./services/ai-seo-optimizer";
 
 const handleError = (error: unknown): string => {
   return error instanceof Error ? error.message : 'Unknown error occurred';
@@ -570,6 +576,115 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       res.json(optimization);
+    } catch (error) {
+      res.status(500).json({ message: handleError(error) });
+    }
+  });
+
+  // AI-First SEO Power Tools
+  app.post("/api/ai-seo/craft-optimize", async (req, res) => {
+    try {
+      const { content, targetKeywords, contentType, audience, userId } = z.object({
+        content: z.string(),
+        targetKeywords: z.array(z.string()),
+        contentType: z.enum(['blog', 'landing', 'product', 'guide']),
+        audience: z.string(),
+        userId: z.number()
+      }).parse(req.body);
+
+      const optimizedContent = await applyCRAFTFramework({
+        content,
+        targetKeywords,
+        contentType,
+        audience
+      });
+
+      await storage.createSeoAnalysis({
+        toolType: "craft-optimization",
+        inputData: { content, targetKeywords, contentType, audience },
+        results: { optimizedContent },
+        userId
+      });
+
+      res.json({ optimizedContent });
+    } catch (error) {
+      res.status(500).json({ message: handleError(error) });
+    }
+  });
+
+  app.post("/api/ai-seo/eat-enhance", async (req, res) => {
+    try {
+      const { content, topic, userId } = z.object({
+        content: z.string(),
+        topic: z.string(),
+        userId: z.number()
+      }).parse(req.body);
+
+      const eatAnalysis = await enhanceEATForAI(content, topic);
+
+      await storage.createSeoAnalysis({
+        toolType: "eat-enhancement",
+        inputData: { content, topic },
+        results: eatAnalysis,
+        userId
+      });
+
+      res.json(eatAnalysis);
+    } catch (error) {
+      res.status(500).json({ message: handleError(error) });
+    }
+  });
+
+  app.post("/api/ai-seo/generate-optimized", async (req, res) => {
+    try {
+      const { topic, targetKeywords, contentGoal, wordCount, audience, userId } = z.object({
+        topic: z.string(),
+        targetKeywords: z.array(z.string()),
+        contentGoal: z.enum(['rank_fast', 'featured_snippet', 'ai_overview', 'voice_search']),
+        wordCount: z.number(),
+        audience: z.string(),
+        userId: z.number()
+      }).parse(req.body);
+
+      const optimizedContent = await generateAIOptimizedContent({
+        topic,
+        targetKeywords,
+        contentGoal,
+        wordCount,
+        audience
+      });
+
+      await storage.createContentItem({
+        title: `AI-Optimized: ${topic}`,
+        contentType: contentGoal,
+        aiProvider: "perplexity",
+        userId
+      });
+
+      res.json({ content: optimizedContent });
+    } catch (error) {
+      res.status(500).json({ message: handleError(error) });
+    }
+  });
+
+  app.post("/api/ai-seo/audit", async (req, res) => {
+    try {
+      const { url, content, userId } = z.object({
+        url: z.string(),
+        content: z.string(),
+        userId: z.number()
+      }).parse(req.body);
+
+      const auditResults = await performAISEOAudit(url, content);
+
+      await storage.createSeoAnalysis({
+        toolType: "ai-seo-audit",
+        inputData: { url, content },
+        results: auditResults,
+        userId
+      });
+
+      res.json(auditResults);
     } catch (error) {
       res.status(500).json({ message: handleError(error) });
     }
