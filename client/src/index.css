@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  --chart-1: hsl(207, 90%, 54%);
+  --chart-2: hsl(142, 76%, 36%);
+  --chart-3: hsl(45, 93%, 47%);
+  --chart-4: hsl(300, 76%, 36%);
+  --chart-5: hsl(15, 93%, 47%);
+
+  --sidebar-background: hsl(0, 0%, 98%);
+  --sidebar-foreground: hsl(240, 5.3%, 26.1%);
+  --sidebar-primary: hsl(240, 5.9%, 10%);
+  --sidebar-primary-foreground: hsl(0, 0%, 98%);
+  --sidebar-accent: hsl(240, 4.8%, 95.9%);
+  --sidebar-accent-foreground: hsl(240, 5.9%, 10%);
+  --sidebar-border: hsl(220, 13%, 91%);
+  --sidebar-ring: hsl(217.2, 91.2%, 59.8%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+
+  --chart-1: hsl(220, 70%, 50%);
+  --chart-2: hsl(160, 60%, 45%);
+  --chart-3: hsl(30, 80%, 55%);
+  --chart-4: hsl(280, 65%, 60%);
+  --chart-5: hsl(340, 75%, 55%);
+
+  --sidebar-background: hsl(240, 5.9%, 10%);
+  --sidebar-foreground: hsl(240, 4.8%, 95.9%);
+  --sidebar-primary: hsl(224.3, 76.3%, 94.1%);
+  --sidebar-primary-foreground: hsl(240, 5.9%, 10%);
+  --sidebar-accent: hsl(240, 3.7%, 15.9%);
+  --sidebar-accent-foreground: hsl(240, 4.8%, 95.9%);
+  --sidebar-border: hsl(240, 3.7%, 15.9%);
+  --sidebar-ring: hsl(217.2, 91.2%, 59.8%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom styles for the platform */
+.stats-card {
+  @apply bg-white dark:bg-card rounded-xl shadow-sm border border-border p-6 transition-all hover:shadow-md;
+}
+
+.tool-card {
+  @apply border border-border rounded-lg p-6 hover:shadow-md transition-shadow bg-white dark:bg-card;
+}
+
+.pricing-card {
+  @apply border border-border rounded-xl p-6 relative bg-white dark:bg-card;
+}
+
+.pricing-card.featured {
+  @apply border-2 border-primary;
+}
+
+.nav-link {
+  @apply text-muted-foreground hover:text-foreground px-1 pt-1 pb-4 text-sm font-medium border-b-2 border-transparent hover:border-muted transition-colors;
+}
+
+.nav-link.active {
+  @apply text-primary border-primary;
+}
+
+.gradient-button {
+  @apply bg-gradient-to-r from-primary to-blue-600 text-primary-foreground hover:from-blue-500 hover:to-blue-700;
+}
+
+.icon-bg {
+  @apply p-2 rounded-lg;
+}
+
+.icon-bg.blue {
+  @apply bg-blue-50 dark:bg-blue-950/20;
+}
+
+.icon-bg.purple {
+  @apply bg-purple-50 dark:bg-purple-950/20;
+}
+
+.icon-bg.green {
+  @apply bg-green-50 dark:bg-green-950/20;
+}
+
+.icon-bg.orange {
+  @apply bg-orange-50 dark:bg-orange-950/20;
+}
+
+.icon-bg.red {
+  @apply bg-red-50 dark:bg-red-950/20;
+}
+
+.icon-bg.cyan {
+  @apply bg-cyan-50 dark:bg-cyan-950/20;
+}
+
+.icon-bg.indigo {
+  @apply bg-indigo-50 dark:bg-indigo-950/20;
+}
+
+.icon-bg.emerald {
+  @apply bg-emerald-50 dark:bg-emerald-950/20;
+}
+
+.icon-bg.pink {
+  @apply bg-pink-50 dark:bg-pink-950/20;
+}
+
+.icon-bg.yellow {
+  @apply bg-yellow-50 dark:bg-yellow-950/20;
+}
