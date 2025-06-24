@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
-import ContentWriter from "@/pages/content-writer";
+import ContentWriterPro from "@/pages/content-writer-pro";
 import SeoTools from "@/pages/seo-tools";
 import Analytics from "@/pages/analytics";
 import Pricing from "@/pages/pricing";
@@ -17,7 +17,7 @@ function Router() {
       <Navbar />
       <Switch>
         <Route path="/" component={Dashboard} />
-        <Route path="/content-writer" component={ContentWriter} />
+        <Route path="/content-writer" component={ContentWriterPro} />
         <Route path="/seo-tools" component={SeoTools} />
         <Route path="/analytics" component={Analytics} />
         <Route path="/pricing" component={Pricing} />
