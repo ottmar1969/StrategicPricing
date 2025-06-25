@@ -10,7 +10,10 @@ export default defineConfig({
     minify: 'terser',
     target: 'es2015',
     rollupOptions: {
-      input: 'src/main.jsx',
+      input: {
+        main: 'src/main.jsx',
+        index: 'index.html' // Explicitly add index.html as an input
+      },
     },
   },
   server: {
