@@ -12,7 +12,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'src/main.jsx',
-        index: 'index.html' // Explicitly add index.html as an input
+        index: 'index.html' // This line explicitly includes index.html in the build
       },
     },
   },
@@ -26,5 +26,5 @@ export default defineConfig({
     port: 4173,
     strictPort: false,
   },
-  base: '',
+  base: '', // Ensure this is an empty string for relative paths
 })
