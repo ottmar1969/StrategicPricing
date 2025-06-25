@@ -9,22 +9,19 @@ import { fileURLToPath } from 'url';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Path to your built frontend files
+const distPath = path.join(__dirname, 'dist');
 
 // Security Middleware
 app.use(helmet());
 app.use(cors());
 app.use(compression());
 
-// Explicitly serve the built index.html for the root path
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
-// Serve static assets from the 'dist/assets' directory
-app.use('/assets', serveStatic(path.join(__dirname, 'dist', 'assets')));
+// Serve static files from the 'dist' directory
+app.use(serveStatic(distPath));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -33,7 +30,7 @@ app.get('/health', (req, res) => {
 
 // All other requests (for client-side routing) return the main index.html file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 // Error handling middleware
