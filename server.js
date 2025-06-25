@@ -21,16 +21,16 @@ app.use(cors());
 app.use(compression());
 
 // Serve static files from the 'dist' directory
-// This will serve index.html and all other assets directly
-app.use(serveStatic(distPath));
+// This will serve all assets (JS, CSS, images, etc.) from the build output
+app.use(express.static(distPath));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-// All other requests (for client-side routing) return the main index.html file
-// This should come AFTER serveStatic to ensure static files are prioritized
+// For any other route, serve the index.html from the dist folder
+// This is crucial for single-page applications and client-side routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
