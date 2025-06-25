@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Bell, ChevronDown, ChartLine } from "lucide-react";
+import { Bell, ChevronDown, LineChart } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +23,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <ChartLine className="h-8 w-8 text-primary mr-2" />
+              <LineChart className="h-8 w-8 text-primary mr-2" />
               <span className="text-xl font-bold text-foreground">ContentScale Pro</span>
             </div>
             <div className="hidden md:ml-8 md:flex md:space-x-8">
